@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <title>CALCULAR O IMC</title>
+
+  <style>
+
+    .header-component {
+    width: 95%;
+    height: 60px;
+    padding: 10px 20px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #184a27 0%, #1e3a24 100%);
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+
+    body {
+        background-color: #0d1a1b;
+        font-family: 'Roboto', sans-serif;
+        color: white;
+    }
+
+    .logo {
+        font-size: 32px;
+        font-weight: bold;
+        color: white;
+        align-items: center;
+        display: flex;
+        letter-spacing: -1px;
+    }
+
+    .a { color: #0e8f07; }
+
+    .menu-button {
+        width: 50px;
+        height: 50px;
+        border: 2px solid #38c172;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .menu-icon {
+        width: 60%;
+        height: 60%;
+        background: linear-gradient(
+            to bottom,
+            #ffffff 0%, #ffffff 15%,
+            transparent 15%, transparent 42.5%,
+            #ffffff 42.5%, #ffffff 57.5%,
+            transparent 57.5%, transparent 85%,
+            #ffffff 85%, #ffffff 100%
+        );
+    }
+
+  
+    .gaveteiro {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        background-color: rgba(17, 17, 17, 0.95);
+        overflow-x: hidden;
+        transition: 0.4s;
+        padding-top: 60px;
+    }
+
+    .gaveteiro a {
+        padding: 10px 25px;
+        text-decoration: none;
+        font-size: 18px;
+        color: #f1f1f1;
+        display: block;
+        transition: 0.3s;
+    }
+
+    .gaveteiro a:hover {
+        background-color: #575757;
+    }
+
+    .gaveteiro .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 30px;
+        color: white;
+        cursor: pointer;
+    }
+
+
+    
+    .container {
+        background-color: #1a2c31;
+        width: 90%;
+        max-width: 420px;
+        margin: 40px auto;
+        padding: 35px 25px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 0 15px rgba(0,255,100,0.05), 
+                    0 0 8px rgba(0,255,150,0.08);
+        border: 1px solid rgba(56, 193, 114, 0.25);
+        animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px);}
+        to { opacity: 1; transform: translateY(0);}
+    }
+
+    .container h1 {
+        color: #38c172;
+        font-size: 28px;
+        letter-spacing: 1px;
+        margin-bottom: 25px;
+    }
+
+    .container input {
+        width: 90%;
+        padding: 12px 15px;
+        margin: 10px 0;
+        font-size: 16px;
+        background-color: #0f1f22;
+        border: 1px solid #2e5d4b;
+        border-radius: 10px;
+        color: #fff;
+        outline: none;
+        transition: 0.2s;
+    }
+
+    .container input:focus {
+        border-color: #38c172;
+        box-shadow: 0 0 7px rgba(56, 193, 114, 0.5);
+    }
+
+    .button2 {
+        width: 90%;
+        padding: 12px;
+        margin-top: 15px;
+        background-color: #38c172;
+        color: #0d1a1b;
+        border: none;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.25s;
+    }
+
+    .button2:hover {
+        background-color: #2ea862;
+        transform: scale(1.03);
+        box-shadow: 0 0 10px rgba(56, 193, 114, 0.5);
+    }
+
+    #resultado {
+        margin-top: 20px;
+        font-size: 20px;
+        color: #d9ffd9;
+        font-weight: 600;
+        text-shadow: 0 0 5px rgba(56,193,114,0.5);
+        padding-top: 10px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+    
+    <div class="header-component">
+        <div class="menu-button" onclick="abrirGaveteiro()">
+            <div class="menu-icon"></div>
+        </div>
+        <div class="logo">
+            tr<a class="a">a</a>in.chad
+        </div>
+    </div>
+
+  
+    <div id="meuGaveteiro" class="gaveteiro">
+        <span class="close-btn" onclick="fecharGaveteiro()">&times;</span>
+        <a href="indexinicio.html">Página Inicial</a>
+        <a href="imc.html">IMC (Balança)</a>
+        <a href="index2.html">Sobre</a>
+        <a href="indexcontato.html">Contato</a>
+    </div>
+
+    
+    <div class="container">
+        <h1>CALCULAR O IMC</h1>
+
+        <input type="number" id="peso" placeholder="Peso (kg)" step="0.1">
+        <input type="number" id="altura" placeholder="Altura (ex: 170 ou 1.70)">
+        <button onclick="calcularIMC()" class="button2">Calcular</button>
+
+        <div id="resultado"></div>
+    </div>
+
+  <script>
+
+    function calcularIMC() {
+      const peso = parseFloat(document.getElementById('peso').value);
+      let alturaRaw = document.getElementById('altura').value.trim();
+      const resultadoEl = document.getElementById('resultado');
+
+      if (!peso || peso <= 0) {
+        resultadoEl.textContent = 'Informe um peso válido (kg).';
+        return;
+      }
+
+      if (!alturaRaw) {
+        resultadoEl.textContent = 'Informe a altura.';
+        return;
+      }
+
+      alturaRaw = alturaRaw.replace(',', '.');
+      let altura = parseFloat(alturaRaw);
+
+      if (isNaN(altura) || altura <= 0) {
+        resultadoEl.textContent = 'Altura inválida.';
+        return;
+      }
+
+      if (altura > 3) altura = altura / 100;
+
+      const imc = peso / (altura * altura);
+      const imcFixed = imc.toFixed(1);
+
+      let categoria = '';
+
+      if (imc < 18.5) categoria = 'Abaixo do peso';
+      else if (imc < 25) categoria = 'Peso normal';
+      else if (imc < 30) categoria = 'Sobrepeso';
+      else categoria = 'Obesidade';
+
+      resultadoEl.innerHTML = `IMC: <strong>${imcFixed}</strong> — ${categoria}`;
+    }
+
+  
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll("#peso, #altura").forEach(input => {
+        input.addEventListener("keydown", e => {
+          if (e.key === "Enter") calcularIMC();
+        });
+      });
+    });
+
+    
+    function abrirGaveteiro() {
+      document.getElementById("meuGaveteiro").style.width = "250px";
+    }
+    function fecharGaveteiro() {
+      document.getElementById("meuGaveteiro").style.width = "0";
+    }
+
+  </script>
+
+</body>
+</html>

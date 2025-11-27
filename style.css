@@ -1,0 +1,223 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+html, body {
+  height: 100vh;
+  overflow: hidden;
+}
+
+body {
+  background-image: url('anastase-maragos-FP7cfYPPUKM-unsplash - Editado.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover; 
+  position: relative;
+  min-height: 100vh;
+}
+
+body::before {
+  content: "";
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(2px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+header {
+  position: relative;
+  z-index: 2;
+}
+
+h1 {
+  color: #fff;
+  margin-top: 25vh;
+  text-align: center;
+  font-family: 'Montserrat', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 8px black;
+  font-size: 6vw; 
+}
+
+.letra-y {
+  color: #0e8f07;
+  text-shadow: 2px 2px 8px black;
+}
+
+.botao {
+  position: relative;
+  z-index: 2;
+}
+
+.btn-primeiro button {
+  display: block;
+  margin: 10vh auto;
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(135deg, #184a27 0%, #1e3a24 100%);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primeiro button:hover {
+  background-color: #5e593c;
+  transform: scale(1.08);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+#botao-transparente {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: transparent;
+  color: #147709;
+  border: 2px solid #0d4404;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+#botao-transparente:hover {
+  background-color: rgba(146, 132, 95, 0.1);
+  color: #5e593c;
+  border-color: #5e593c;
+  transform: scale(1.05);
+}
+
+#botao-transparente span {
+  margin-left: 8px;
+  font-size: 1.2em;
+  line-height: 1;
+}
+
+h2 {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  font-family: 'Montserrat', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  margin-top: 10px;
+  color: #97c691;
+  font-size: 1.5rem;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.criador {
+  background-color: rgb(0, 0, 0);
+  padding: 15px 0;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.criador h5 {
+  color: #797979;
+  font-size: 0.9rem;
+  font-family: 'Roboto', sans-serif;
+}
+
+.criador img {
+  height: 1em;
+  width: auto;
+  vertical-align: middle;
+}
+
+@media (max-width: 1024px) {
+  h1 {
+    font-size: 8vw;
+    margin-top: 12vh;
+  }
+
+  #botao-transparente {
+    top: 20px;
+    right: 20px;
+    font-size: 16px;
+  }
+
+  .btn-primeiro button {
+    padding: 12px 30px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    overflow-y: auto;
+  }
+
+  h1 {
+    font-size: 9vw;
+    margin-top: 10vh;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  #botao-transparente {
+    top: 15px;
+    right: 15px;
+    font-size: 15px;
+    padding: 8px 16px;
+  }
+
+  .btn-primeiro button {
+    margin: 8vh auto;
+  }
+
+  .criador {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 10vw;
+  }
+
+  #botao-transparente {
+    font-size: 14px;
+    right: 10px;
+    top: 10px;
+  }
+
+  .btn-primeiro button {
+    width: 80%;
+    font-size: 1rem;
+  }
+
+  .criador h5 {
+    font-size: 0.8rem;
+  }
+}

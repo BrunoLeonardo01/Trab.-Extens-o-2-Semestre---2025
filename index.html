@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treinos da Semana</title>
+    <style>
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0d1a1b;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+    
+        .header-component {
+            width: 95%;
+            height: 60px;
+            padding: 10px 20px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #184a27 0%, #1e3a24 100%);
+            margin: 20px auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: white;
+            display: flex;
+            align-items: center;
+            letter-spacing: -1px;
+        }
+        .logo .a {
+            color: #0e8f07;
+        }
+
+        .menu-button {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #38c172;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .menu-icon {
+            width: 60%;
+            height: 60%;
+            background: linear-gradient(
+                to bottom,
+                white 0%, white 15%,
+                transparent 15%, transparent 42.5%,
+                white 42.5%, white 57.5%,
+                transparent 57.5%, transparent 85%,
+                white 85%, white 100%
+            );
+            background-repeat: no-repeat;
+        }
+
+        
+        .gaveteiro {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 2;
+            top: 0;
+            left: 0;
+            background-color: rgba(17, 17, 17, 0.95);
+            overflow-x: hidden;
+            transition: 0.4s;
+            padding-top: 60px;
+        }
+        .gaveteiro a {
+            padding: 10px 25px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #f1f1f1;
+            display: block;
+            transition: 0.3s;
+        }
+        .gaveteiro a:hover { background-color: #575757; }
+        .gaveteiro .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+        }
+
+        
+        .titulo {
+            color: beige;
+            text-align: center;
+            margin-top: 80px;
+            margin-bottom: 30px;
+            font-size: 28px;
+            margin-bottom: 150px;
+        }
+
+        
+        .quadro-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            justify-items: center;
+            align-items: start;
+            width: 90%;
+            max-width: 1300px;
+            margin: 0 auto 50px auto;
+        }
+
+        
+        .quadro {
+            width: 250px;
+            background-color: #1a2c31;
+            border-radius: 10px;
+            padding: 18px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+            color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.2s, transform 0.2s;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        .quadro:hover {
+            background-color: #243c42;
+            transform: scale(1.02);
+        }
+        .quadro::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-left: 8px solid #38c172;
+            margin-left: 10px;
+        }
+
+    
+        .quadro-aviso {
+            background-color: #22252a; 
+            color: #ffffff; 
+            padding: 30px;
+            width: 700px; 
+            border-radius: 8px; 
+            text-align: center;
+            border-top: 5px solid transparent; 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7); 
+            margin-left: 30%;
+        }
+
+        .icone-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 25px auto; 
+            width: 50px;
+            height: 50px;
+            border-radius: 50%; 
+            background-color: #fdd835; 
+            font-size: 30px;
+            font-weight: bold;
+            color: #22252a; 
+        }
+
+        .titulo {
+            font-size: 20px;
+            font-weight: 600; 
+            margin-bottom: 20px;
+            padding-bottom: 5px; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+        }
+
+        .mensagem {
+            font-size: 16px;
+            line-height: 1.4;
+            color: #c0c0c0; 
+            margin-top: 20px;
+        }
+
+        .sub_aviso {
+            font-size: 13px;
+        }
+
+        @media (max-width: 500px) {
+            .quadro { width: 180px; padding: 15px 10px; font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-component">
+        <div class="menu-button" onclick="abrirGaveteiro()">
+            <div class="menu-icon"></div>
+        </div>
+        <div class="logo">
+            tr<a class="a">a</a>in.chad<span class="dot"></span>
+        </div>
+    </div>
+
+    <h1 class="titulo">TREINOS DA SEMANA</h1>
+
+    <div class="quadro-container">
+        <a href="segunda.html" class="quadro">Segunda - Pernas</a>
+        <a href="terça.html" class="quadro">Terça - Peito e Bíceps</a>
+        <a href="quarta.html" class="quadro">Quarta - Costas e Abdômen</a>
+        <a href="quinta.html" class="quadro">Quinta - Cardio e Core</a>
+        <a href="sexta.html" class="quadro">Sexta - Ombros e Tríceps</a>
+        <a href="TFM.html" class="quadro">Sábado - Treino de sua escolha</a>
+        <a href="domingo.html" class="quadro">Domingo - Descanso Ativo</a>
+    </div>
+
+    
+    <div class="quadro-aviso">
+        <div class="icone-container">!</div>
+        <p class="titulo"><strong>ATENÇÃO!!</strong></p>
+        <p class="mensagem">Todos os treinos são elaborados por base de pesquisas de redes.</p>
+        <p class="sub_aviso">Para treinos especializados, consulte o Chat GPT.</p>
+    </div>
+
+    
+    <div id="meuGaveteiro" class="gaveteiro">
+        <span class="close-btn" onclick="fecharGaveteiro()">&times;</span>
+        <a href="indexinicio.html">Página Inicial</a>
+        <a href="imc.html">IMC (Balança)</a>
+        <a href="index2.html">Sobre</a>
+        <a href="indexcontato.html">Contato</a>
+    </div>
+
+    <script>
+        function abrirGaveteiro() {
+            document.getElementById("meuGaveteiro").style.width = "250px";
+        }
+        function fecharGaveteiro() {
+            document.getElementById("meuGaveteiro").style.width = "0";
+        }
+    </script>
+
+</body>
+</html>

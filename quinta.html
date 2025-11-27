@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treino Caseiro - Segunda</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #0d1a1b;
+            color: #ffffff;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .timer-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .timer {
+            font-size: 24px;
+            font-weight: bold;
+            color: #38c172;
+            margin-bottom: 10px;
+        }
+
+        .start-button {
+            background-color: #38c172;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .start-button:hover {
+            background-color: #2c9e5c;
+        }
+
+        .page-header {
+            width: 100%;
+            max-width: 450px;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #8c9798;
+            display: flex;
+            align-items: center;
+        }
+
+        .subtitle span {
+            margin-left: 5px;
+            font-weight: 500;
+            color: #38c172;
+        }
+
+        .exercise-list {
+            width: 100%;
+            max-width: 450px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .exercise-list.hidden {
+            display: none !important;
+        }
+
+        .exercise-card {
+            background-color: #1a2c31;
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        .exercise-card.completed {
+            background-color: #243c42;
+            opacity: 0.7;
+        }
+
+        .exercise-image {
+            width: 80px;
+            height: 80px;
+            min-width: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #0f1f23;
+            position: relative;
+        }
+
+        .exercise-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff8c00 0%, #dc143c 100%);
+            opacity: 0.5;
+        }
+
+        .exercise-image::after {
+            content: '🏃‍♂️';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 30px;
+        }
+
+        .exercise-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .exercise-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+
+        .series-info {
+            font-size: 14px;
+            font-weight: bold;
+            color: #45d88c;
+            margin-bottom: 8px;
+        }
+
+        .vezes-info {
+            color: #d84545;
+        }
+
+        .tags {
+            display: flex;
+            gap: 6px;
+        }
+
+        .tag {
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            color: white;
+            background-color: #38c172;
+        }
+
+        .completion-toggle {
+            position: relative;
+            width: 40px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        .completion-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #2c4953;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #38c172;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(16px);
+        }
+
+        .all-done {
+            color: #38c172;
+            text-align: center;
+            font-size: 24px;
+            margin: 18px 0;
+            display: none;
+            margin-top: 10%;
+        }
+
+        .button_reset {
+            background-color: #d84545;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-left: 10px;
+            color: white;
+            cursor: pointer;
+        }
+
+        h3 {
+            margin-left: 35%;
+        }
+
+        .back-button {
+            position: fixed;
+            margin-top: 2%;
+            margin-left: 2%;
+            top: 8px;
+            left: 8px;
+            background-color: #38c172;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+            z-index: 9999;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-button:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
+
+<body>
+    <a id="backButton" class="back-button" href="index.html" aria-label="Voltar">← Voltar</a>
+
+    <div>
+        <h1>TREINO - CARDIO</h1>
+        <h3>"QUINTA"</h3>
+    </div>
+
+    <div class="timer-container">
+        <div class="timer" id="timer">1:00</div>
+        <button class="start-button" id="startTimerBtn">Começar</button>
+        <button id="resetBtn" class="button_reset">Reset</button>
+    </div>
+
+    <div class="page-header">
+        <div class="subtitle">
+            💪 Exercícios Restantes<span id="exercise-count">| 5 exerc.</span>
+        </div>
+    </div>
+
+    <h1 id="allDoneMessage" class="all-done">Parabéns — todos os exercícios concluídos!</h1>
+
+    <div class="exercise-list">
+        <div class="exercise-card">
+            <div class="exercise-image"></div>
+            <div class="exercise-content">
+                <div class="exercise-title">Skipping (Corrida com Joelhos Altos)</div>
+                <div class="series-info"><a class="vezes-info">3x</a> SÉRIES DE <a class="vezes-info">30 seg</a></div>
+                
+            </div>
+            <label class="completion-toggle"><input type="checkbox" onchange="toggleCompletion(this)"><span class="slider"></span></label>
+        </div>
+
+        <div class="exercise-card">
+            <div class="exercise-image"></div>
+            <div class="exercise-content">
+                <div class="exercise-title">Jump Squats (Agachamento com Salto)</div>
+                <div class="series-info"><a class="vezes-info">3x</a> SÉRIES DE <a class="vezes-info">10 a 12</a></div>
+                
+            </div>
+            <label class="completion-toggle"><input type="checkbox" onchange="toggleCompletion(this)"><span class="slider"></span></label>
+        </div>
+
+        <div class="exercise-card">
+            <div class="exercise-image"></div>
+            <div class="exercise-content">
+                <div class="exercise-title">Polichinelos Cruzados</div>
+                <div class="series-info"><a class="vezes-info">3x</a> SÉRIES DE <a class="vezes-info">30 seg</a></div>
+                
+            </div>
+            <label class="completion-toggle"><input type="checkbox" onchange="toggleCompletion(this)"><span class="slider"></span></label>
+        </div>
+
+        <div class="exercise-card">
+            <div class="exercise-image"></div>
+            <div class="exercise-content">
+                <div class="exercise-title">Corrida Lateral (Shuffles)</div>
+                <div class="series-info"><a class="vezes-info">3x</a> SÉRIES DE <a class="vezes-info">20 a 30 seg</a></div>
+                
+            </div>
+            <label class="completion-toggle"><input type="checkbox" onchange="toggleCompletion(this)"><span class="slider"></span></label>
+        </div>
+
+        <div class="exercise-card">
+            <div class="exercise-image"></div>
+            <div class="exercise-content">
+                <div class="exercise-title">Mountain Climbers</div>
+                <div class="series-info"><a class="vezes-info">3x</a> SÉRIES DE <a class="vezes-info">20 a 30 seg</a></div>
+               
+            </div>
+            <label class="completion-toggle"><input type="checkbox" onchange="toggleCompletion(this)"><span class="slider"></span></label>
+        </div>
+    </div>
+
+    <script>
+        const countElement = document.getElementById('exercise-count');
+        const exerciseCards = document.querySelectorAll('.exercise-card');
+
+        function updateExerciseCount() {
+            const remaining = Array.from(exerciseCards).filter(card => !card.classList.contains('completed')).length;
+            countElement.textContent = `| ${remaining} exerc.`;
+            const allDoneMessage = document.getElementById('allDoneMessage');
+            const exerciseListEl = document.querySelector('.exercise-list');
+            allDoneMessage.style.display = remaining === 0 ? 'block' : 'none';
+            exerciseListEl.classList.toggle('hidden', remaining === 0);
+        }
+
+        function toggleCompletion(checkbox) {
+            const card = checkbox.closest('.exercise-card');
+            card.classList.toggle('completed', checkbox.checked);
+            updateExerciseCount();
+        }
+
+        updateExerciseCount();
+
+        const INITIAL_TIME = 60;
+        let totalTime = INITIAL_TIME;
+        const timerElement = document.getElementById('timer');
+        let timerInterval = null;
+        const startBtn = document.getElementById('startTimerBtn');
+        const resetBtn = document.getElementById('resetBtn');
+
+        function formatTime(t) {
+            const minutes = Math.floor(t / 60);
+            const seconds = t % 60;
+            return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function updateTimer() {
+            timerElement.textContent = formatTime(totalTime);
+            if (totalTime > 0) {
+                totalTime--;
+            } else {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                startBtn.disabled = false;
+                alert("⏰ Tempo esgotado!");
+            }
+        }
+
+        updateTimer();
+
+        startBtn.addEventListener('click', () => {
+            if (!timerInterval) {
+                timerInterval = setInterval(updateTimer, 1000);
+                startBtn.disabled = true;
+            }
+        });
+
+        resetBtn.addEventListener('click', () => {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            totalTime = INITIAL_TIME;
+            updateTimer();
+            startBtn.disabled = false;
+        });
+    </script>
+</body>
+</html>
